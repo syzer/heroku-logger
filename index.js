@@ -24,7 +24,7 @@ app.post('/', (req, res) => {
     fs.writeFileAsync(__dirname + '/data/log.json', JSON.stringify(logs))
         .catch(console.error)
 
-    return res.json(logs)
+    return res.status(200).end()
 })
 
 app.listen(app.get('port'), () =>

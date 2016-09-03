@@ -3,6 +3,8 @@
 nodemon
 curl -X GET -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
 curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
+curl -X GET -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/ -d '{"message":"awesome"}'
+curl -X POST -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/  -d '{"message":"awesome"}'
 ```
 
 # node-js-getting-started
