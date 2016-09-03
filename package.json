@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "ava test",
+    "test": "xo && ava test",
     "test-read-performance": "ab -n 10000 -c 100 http://127.0.0.1:5000/",
     "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/"
   },
@@ -37,6 +37,11 @@
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.16.0",
-    "supertest": "^2.0.0"
+    "supertest": "^2.0.0",
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "semicolon": false,
+    "space": 4
   }
 }
