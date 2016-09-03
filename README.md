@@ -21,9 +21,9 @@ npm start
 #### develop
 ```
 nodemon -i data/  
-curl -X GET -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
+curl -X GET -H "Content-Type: application/json" localhost:5000
 curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
-curl -X GET -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/ -d '{"message":"awesome"}'
+curl -X GET -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/
 curl -X POST -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/  -d '{"message":"awesome"}'
 ```
 ## Test
