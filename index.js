@@ -1,21 +1,21 @@
 let express = require('express')
 let app = express()
-const levelup = require('levelup')
-const db = levelup('./data')
+const levelup = require('level')
+const db = levelup(__dirname + '/data')
+// deflate
 const compression = require('compression')
 app.use(compression())
 
+// application/json
 const bodyParser = require('body-parser')
-// for parsing application/json
 app.use(bodyParser.json())
-// for parsing application/x-www-form-urlencoded
 
 app.set('port', (process.env.PORT || 5000))
 
 app.get('/', (req, res) => {
-    res.writeHead(200, { 'content-encoding': 'deflate' });
+    res.writeHead(200, {'content-encoding': 'deflate'})
     db.createValueStream()
-        .on('data', console.log)
+        // .on('data', console.log)
         .on('error', (err) => console.error)
         .pipe(res)
 })

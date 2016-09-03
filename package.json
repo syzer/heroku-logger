@@ -1,14 +1,16 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.2.5",
-  "description": "A sample Node.js app using Express 4",
+  "name": "message-que",
+  "version": "0.3.0",
+  "description": "Fast message server based on level db",
   "engines": {
     "node": "^6.x"
   },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "ava test"
+    "test": "ava test",
+    "test-read-performance": "ab -n 10000 -c 100 http://127.0.0.1:5000/",
+    "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -18,12 +20,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/syzer/heroku-logger"
   },
   "keywords": [
     "node",
     "heroku",
-    "express"
+    "express",
+    "message server",
+    "database",
+    "storage",
+    "message que",
+    "queque",
+    "message queque",
+    "level db"
   ],
   "license": "MIT",
   "devDependencies": {
