@@ -12,3 +12,4 @@ Dockerfile
 docker-compose.yml
 .idea/
 npm-debug.log.*
+data/log.json
