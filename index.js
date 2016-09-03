@@ -9,12 +9,16 @@ app.use(express.static(__dirname + '/public'))
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 
-app.get('/', function (request, response) {
-    response.render('pages/index')
+let logs = [];
+
+app.get('/', (req, res) => {
+    // response.render('pages/index')
+    return res.json(logs)
 })
 
 app.post('/', (req, res) => {
-    response.json({
+    logs.push(req);
+    return res.json({
         i: 'am alive'
     })
 })
