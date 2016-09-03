@@ -1,36 +1,40 @@
 let express = require('express')
 let app = express()
-const Promise = require('bluebird')
-const fs = Promise.promisifyAll(require('fs'))
+const levelup = require('levelup')
+const db = levelup('./data')
+const compression = require('compression')
+app.use(compression())
 
-let bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 // for parsing application/json
 app.use(bodyParser.json())
 // for parsing application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}))
 
 app.set('port', (process.env.PORT || 5000))
 
-let logs = require('./data/log.json')
-
 app.get('/', (req, res) => {
-    return res.json(logs)
+    res.writeHead(200, { 'content-encoding': 'deflate' });
+    db.createValueStream()
+        .on('data', console.log)
+        .on('error', (err) => console.error)
+        .pipe(res)
 })
 
 app.post('/', (req, res) => {
-    console.log(req.body, typeof req.body)
-    logs.push(req.body);
+    const date = new Date()
+    db.put(date, req.body, {encoding: 'json'}, (err) => {
+        if (err) return res.status(500).end()
 
-    fs.writeFileAsync(__dirname + '/data/log.json', JSON.stringify(logs))
-        .catch(console.error)
-
-    return res.status(200).end()
+        return res.status(200).end()
+    })
 })
 
 app.listen(app.get('port'), () =>
     console.log('Node app is running on port', app.get('port'))
 )
 
-
+module.exports = {
+    app
+}
 
 

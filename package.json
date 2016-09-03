@@ -7,12 +7,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "ava test"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
-    "express": "4.13.3"
+    "compression": "^1.6.2",
+    "express": "4.13.3",
+    "level": "^1.4.0"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,9 @@
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "supertest": "^2.0.0"
+  }
 }
