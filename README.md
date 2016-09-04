@@ -40,6 +40,14 @@ curl -H "Accept-Encoding: gzip,deflate" -X GET localhost:5000
 >{"1":"ok"}{"1":"ok"}{"1":"ok"}
 ```
 
+### querying logs
+You can query strings with q parameters
+options lt,lte, gt, gte
+
+Please look in the tests for more detailed information or here:
+[https://github.com/Level/levelup#createReadStream]()
+
+
 ## Testing performance
 
 #### *read*:
