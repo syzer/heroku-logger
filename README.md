@@ -1,7 +1,9 @@
 ## WAT
 
+[![Build Status](https://travis-ci.org/syzer/heroku-logger.svg?branch=master)](https://travis-ci.org/syzer/heroku-logger)
 Ultra fast json - message server.
 It that persist and retrieve your messages.
+From 0 to heroku hero (deploy) in 30 sec.
 
 ## HOW
 
