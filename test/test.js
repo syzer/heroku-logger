@@ -12,7 +12,7 @@ test('adding keys', () => request(app)
     .expect('transfer-encoding', /chunked/)
 )
 
-test('reading stream', (t) => request(app)
+test('reading stream', t => request(app)
     .get('/')
     .set('Accept', 'application/json')
     .expect(200)
