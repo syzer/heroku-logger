@@ -39,7 +39,7 @@
     "ava": "^0.16.0",
     "supertest": "^2.0.0",
     "supertest-as-promised": "^4.0.0",
-    "xo": "^0.17.0"
+    "xo": "^0.18.0"
   },
   "xo": {
     "semicolon": false,
