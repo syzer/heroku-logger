@@ -1,5 +1,7 @@
 ## WAT
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/syzer/heroku-logger.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/syzer/heroku-logger.svg?branch=master)](https://travis-ci.org/syzer/heroku-logger)
 Ultra fast json - message server.
 It that persist and retrieve your messages.
