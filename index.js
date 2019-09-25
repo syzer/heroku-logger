@@ -11,30 +11,30 @@ app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 5000))
 
 app.get('/', (req, res) => db.createReadStream(
-    Object.assign(
-        {keys: false},
-        req.query,
-        JSON.parse(req.query.q || '{}'),
-        {limit: parseInt(req.query.limit, 10) || 1}
-    ))
-    .on('error', console.error)
-    .pipe(res)
+  Object.assign(
+    {keys: false},
+    req.query,
+    JSON.parse(req.query.q || '{}'),
+    {limit: parseInt(req.query.limit, 10) || 1}
+  ))
+  .on('error', console.error)
+  .pipe(res)
 )
 
 app.post('/', (req, res) =>
-    db.put(Date.now(), req.body, {encoding: 'json'}, err => {
-        if (err) {
-            return res.status(500).end()
-        }
+  db.put(Date.now(), req.body, {encoding: 'json'}, err => {
+    if (err) {
+      return res.status(500).end()
+    }
 
-        return res.status(200).end()
-    })
+    return res.status(200).end()
+  })
 )
 
 app.listen(app.get('port'), () =>
-    console.log('Node app is running on port', app.get('port'))
+  console.log('Node app is running on port', app.get('port'))
 )
 
 module.exports = {
-    app
+  app
 }
