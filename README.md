@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/syzer/heroku-logger.svg?branch=master)](https://travis-ci.org/syzer/heroku-logger)
 Ultra fast json - message server.
-It that persist and retrieve your messages.
+It allows to persist and retrieve your messages... till next day when heroku recycle your container :).
 From 0 to heroku hero (deploy) in 30 sec.
 
 ## HOW
@@ -29,12 +29,23 @@ curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"
 curl -X GET -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/
 curl -X POST -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/  -d '{"message":"awesome"}'
 ```
+
+## Send messages
+#### TCP 
+```bash
+curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
+```
+
+### UDP
+```bash
+echo '{"2":"My KungFu is Good!"}' | nc -u -w0 127.0.0.1 5001
+```
+
 ## Test
 
 #### with ava
 ```
-npm i -g ava
-ava test
+npm test
 ```
 
 #### with curl
