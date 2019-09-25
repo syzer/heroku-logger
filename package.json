@@ -16,7 +16,7 @@
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "express": "4.15.3",
-    "level": "^1.4.0"
+    "level": "^5.0.1"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,6 @@
   },
   "xo": {
     "semicolon": false,
-    "space": 4
+    "space": 2
   }
 }

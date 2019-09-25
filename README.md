@@ -17,6 +17,7 @@ $ heroku open
 #### run locally
 
 ```
+npm init
 npm start
 ```
 
