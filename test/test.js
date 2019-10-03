@@ -34,7 +34,7 @@ test('querying database', t => request(app)
 )
 
 test('sending message via UDP', async t => {
-  const message = {2: 'My KungFu is Good!'}
+  const message = {value: 'My KungFu is Good!'}
   const buffer = Buffer.from(JSON.stringify((message)))
 
   await sendAsync(buffer, 0, buffer.length, udpPort, '0.0.0.0')
@@ -46,8 +46,11 @@ test('sending message via UDP', async t => {
     .expect(200)
     .then(d => {
       // test if all are correct objects
-      const messages = d.text.replace(/}{/g, '}|{').split('|').map(JSON.parse)
+      const messages = d.text.split('\n')
+        .map(e => e.split('Z '))
+        .map(e => e[1] && JSON.parse(e[1]))
+
       // contain correct string
-      t.truthy(messages.find(e => e[2] === message[2]))
+      t.truthy(messages.find(e => e.value === message.value))
     })
 })

@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon -i data/b",
     "test": "xo && ava test",
     "test-read-performance": "ab -n 10000 -c 100 http://127.0.0.1:5000/",
     "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/"
@@ -16,7 +17,8 @@
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "express": "^4.17.1",
-    "level": "^5.0.1"
+    "level": "^5.0.1",
+    "object-stream-tools": "^2.3.0"
   },
   "repository": {
     "type": "git",

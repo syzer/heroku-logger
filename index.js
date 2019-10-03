@@ -4,6 +4,7 @@ const express = require('express')
 const db = require('level')(path.resolve(__dirname, 'data'))
 const compression = require('compression')
 const bodyParser = require('body-parser')
+const {map} = require('object-stream-tools')
 
 const udpPort = process.env.UDP_PORT || 5001
 const tcpPort = process.env.PORT || 5000
@@ -15,16 +16,22 @@ app.use(bodyParser.json())
 
 app.set('port', (tcpPort))
 
-app.get('/', (req, res) => db.createReadStream(
-  Object.assign(
-    {keys: false},
-    req.query,
-    JSON.parse(req.query.q || '{}'),
-    {limit: parseInt(req.query.limit, 10) || 1}
-  ))
-  .on('error', console.error)
-  .pipe(res)
-)
+app.get('/', (req, res) =>
+  db.createReadStream(
+    Object.assign(
+      {keys: true},
+      req.query,
+      JSON.parse(req.query.q || '{}'),
+      {
+        limit: parseInt(req.query.limit, 10) || 100,
+        reverse: true
+      },
+    ))
+    .on('error', console.error)
+    .pipe(map(({key, value}) =>
+      new Date(parseInt(key, 10)).toISOString() + ' ' + value + '\n'
+    ))
+    .pipe(res))
 
 app.post('/', (req, res) =>
   db.put(Date.now(), req.body, {encoding: 'json'})
