@@ -1,6 +1,6 @@
 {
   "name": "message-que",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Grep all your syslog with fast message/log server based on level db",
   "engines": {
     "node": "^12.x"
@@ -13,7 +13,7 @@
     "test-read-performance": "lsof -Pi :5000 -sTCP:LISTEN -t; echo 'If above is empty please run `npm start`'; ab -n 10000 -c 100 http://127.0.0.1:5000/ > read.performance.md",
     "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/ > write.performance.md",
     "query": "./query.sh",
-    "bin": "query.sh"
+    "bin": "./query.sh"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
