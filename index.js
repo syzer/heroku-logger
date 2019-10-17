@@ -13,7 +13,8 @@ const socket = dgram.createSocket('udp4')
 const app = express()
 app.use(compression())
 app.use(bodyParser.json())
-
+// @see https://github.com/expressjs/body-parser#bodyparserrawoptions
+app.use(bodyParser.text({limit: '512kb'}))
 app.set('port', (tcpPort))
 
 app.get('/', (req, res) =>
@@ -31,7 +32,8 @@ app.get('/', (req, res) =>
     .pipe(map(({key, value}) =>
       new Date(parseInt(key, 10)).toISOString() + ' ' + value + '\n'
     ))
-    .pipe(res))
+    .pipe(res)
+)
 
 app.post('/', (req, res) =>
   db.put(Date.now(), req.body, {encoding: 'json'})

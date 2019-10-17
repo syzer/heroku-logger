@@ -1,13 +1,27 @@
 ## WAT
 
 [![Build Status](https://travis-ci.org/syzer/heroku-logger.svg?branch=master)](https://travis-ci.org/syzer/heroku-logger)
-Ultra fast json - message server.
+Ultra fast message/log server.
+Grep all your logs with simple cli and server.
 It allows to persist and retrieve your messages... till next day when heroku recycle your container :).
 From 0 to heroku hero (deploy) in 30 sec.
 
 ## HOW
+#### Install cli grep/client
+```
+npm i -g message-que
+syslog-grep '5 days ago' | grep intellij
+```
 
-#### deploy
+#### deploy server
+##### with docker
+```shell script
+#1. clone
+#2. cd
+docker-compose up
+```
+
+##### with heroku
 ```
 $ heroku create
 $ git push heroku master
@@ -33,15 +47,6 @@ npm init
 npm start
 ```
 [localhost:5000](localhost:5000)
-
-#### Develop
-```
-npm run devrm 
-curl -X GET -H "Content-Type: application/json" localhost:5000
-curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
-curl -X GET -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/
-curl -X POST -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/  -d '{"message":"awesome"}'
-```
 
 ## Send messages
 #### TCP 
@@ -155,7 +160,8 @@ Percentage of the requests served within a certain time (ms)
   95%     29
   98%     35
   99%     40
- 100%     42 (longest request)```
+ 100%     42 (longest request)
+```
 
 ## Deploying to Heroku
 
@@ -163,4 +169,13 @@ Percentage of the requests served within a certain time (ms)
 $ heroku create
 $ git push heroku master
 $ heroku open
+```
+
+## Develop
+```
+npm run dev
+curl -X GET -H "Content-Type: application/json" localhost:5000
+curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}'
+curl -X GET -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/
+curl -X POST -H "Content-Type: application/json" https://heroku-sink-666.herokuapp.com/  -d '{"message":"awesome"}'
 ```

@@ -2,6 +2,7 @@ import dgram from 'dgram'
 import {promisify} from 'util'
 import request from 'supertest-as-promised'
 import test from 'ava'
+import execa from 'execa'
 import {app, udpPort} from '../index'
 
 const client = dgram.createSocket('udp4')
@@ -53,4 +54,29 @@ test('sending message via UDP', async t => {
       // contain correct string
       t.truthy(messages.find(e => e.value === message.value))
     })
+})
+
+test('Query cli usage', async t => {
+  const {stdout, stderr} = await execa.command(
+    './query.sh \'2 min ago\' | grep KungFu',
+    {shell: true}
+  )
+  t.truthy(stdout)
+  t.falsy(stderr)
+})
+
+test('Send stacktrace AKA non-json', async t => {
+  const {stdout, stderr} = await execa.command(
+    'curl -s -X POST -H "Content-Type: text/plain" -d @./test/example.java.stacktrace.txt localhost:5000',
+    {shell: true}
+  )
+  t.falsy(stdout) // server is not 'chatty'
+  t.falsy(stderr)
+
+  const query = await execa.command(
+    './query.sh \'2 min ago\' | grep inte',
+    {shell: true}
+  )
+  t.truthy(query.stdout)
+  t.falsy(query.stderr)
 })

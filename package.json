@@ -1,7 +1,7 @@
 {
   "name": "message-que",
-  "version": "0.4.0",
-  "description": "Fast message server based on level db",
+  "version": "0.5.0",
+  "description": "Grep all your syslog with fast message/log server based on level db",
   "engines": {
     "node": "^12.x"
   },
@@ -11,7 +11,11 @@
     "dev": "nodemon -i data/b",
     "test": "xo && ava test",
     "test-read-performance": "lsof -Pi :5000 -sTCP:LISTEN -t; echo 'If above is empty please run `npm start`'; ab -n 10000 -c 100 http://127.0.0.1:5000/ > read.performance.md",
-    "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/ > write.performance.md"
+    "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/ > write.performance.md",
+    "query": "./query.sh",
+    "bin": {
+      "syslog-grep": "./query.sh"
+    }
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -25,6 +29,8 @@
     "url": "https://github.com/syzer/heroku-logger"
   },
   "keywords": [
+    "syslog-grep",
+    "rsyslog",
     "node",
     "heroku",
     "express",
@@ -39,6 +45,7 @@
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.18.2",
+    "execa": "^3.1.0",
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.0",
     "xo": "^0.17.0"
