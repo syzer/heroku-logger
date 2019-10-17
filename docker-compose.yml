@@ -1,0 +1,15 @@
+version: "3"
+services:
+  node:
+    image: "node:12"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/app
+      - ./data:/home/node/app/data
+    expose:
+      - "5000" # tcp
+      - "5001" # udp
+    command: "npm start"
