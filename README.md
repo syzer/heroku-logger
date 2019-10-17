@@ -10,7 +10,9 @@ From 0 to heroku hero (deploy) in 30 sec.
 #### Install cli grep/client
 ```
 npm i -g message-que
-syslog-grep '5 days ago' | grep intellij
+syslog-server #start local server
+curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}' 
+syslog-grep '5 min ago' | grep awesome
 ```
 
 #### deploy server

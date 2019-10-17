@@ -7,8 +7,8 @@ npm-debug.log
 *.dev
 .DS_Store
 
-# Docker
 .idea/
 npm-debug.log.*
 data/log.json
 data/*
+*.tgz

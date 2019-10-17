@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const path = require('path')
 const dgram = require('dgram')
 const express = require('express')
