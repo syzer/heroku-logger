@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env node
 
 when=`date --date="$@" +%s`
 curl -s -G -X GET 'localhost:5000' --data-urlencode "gt=${when}" --data-urlencode "limit=-1" --output -
