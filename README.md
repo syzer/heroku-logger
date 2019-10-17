@@ -79,6 +79,7 @@ Please look in the tests for more detailed information or here:
 TL;DR: It's fast with tiny footprint.
 
 #### *read*:
+[Read performance test](read.performance.md)
 ```
 npm run test-read-performance                                                                                                                                 6 s
 
@@ -114,9 +115,11 @@ Percentage of the requests served within a certain time (ms)
   95%     76
   98%    100
   99%    176
- 100%    176 (longest request)```
+ 100%    176 (longest request)
+```
 
-#### write
+#### *write*
+[Write performance test](write.performance.md)
 ```sh
 npm run test-write-performance
 
