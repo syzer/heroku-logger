@@ -8,12 +8,30 @@ From 0 to heroku hero (deploy) in 30 sec.
 
 ## HOW
 #### Install cli grep/client
-```
+```shell script
 npm i -g message-que
 syslog-server #start local server
 curl -X POST -H "Content-Type: application/json" localhost:5000 -d '{"message":"awesome"}' 
-syslog-grep '5 min ago' | grep awesome
+syslog-query '5 min ago' | grep awesome
 ```
+
+#### Query json
+Its *jsonn* structure.. so parsers like **jq** can be very useful
+Example:
+```shell script
+syslog-query '5 min ago' | awk '{print $2}' | jq
+```
+
+Outputs
+```shell script
+{
+  "db": "test1"
+}
+{
+  "db": "test2"
+}
+```
+
 
 #### deploy server
 ##### with docker
@@ -24,7 +42,7 @@ docker-compose up
 ```
 
 ##### with heroku
-```
+```shell script
 $ heroku create
 $ git push heroku master
 $ heroku open

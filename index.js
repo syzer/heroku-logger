@@ -15,7 +15,7 @@ const app = express()
 app.use(compression())
 app.use(bodyParser.json())
 // @see https://github.com/expressjs/body-parser#bodyparserrawoptions
-app.use(bodyParser.text({limit: '512kb'}))
+app.use(bodyParser.text({limit: '64kb'}))
 app.set('port', (tcpPort))
 
 app.get('/', (req, res) =>
@@ -51,7 +51,7 @@ socket.on('error', err =>
 )
 
 socket.on('message', msg =>
-  db.put(Date.now(), JSON.parse(msg.toString()), {encoding: 'json'})
+  db.put(Date.now(), msg.toString())
 )
 
 socket.bind(udpPort)

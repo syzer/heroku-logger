@@ -1,6 +1,6 @@
 {
   "name": "message-que",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "Grep all your syslog with fast message/log server based on level db",
   "engines": {
     "node": "^12.x"
@@ -46,6 +46,7 @@
   "devDependencies": {
     "ava": "^0.18.2",
     "execa": "^3.1.0",
+    "ramda": "^0.26.1",
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.0",
     "xo": "^0.17.0"

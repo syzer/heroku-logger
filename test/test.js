@@ -3,13 +3,15 @@ import {promisify} from 'util'
 import request from 'supertest-as-promised'
 import test from 'ava'
 import execa from 'execa'
+import {always, tryCatch} from 'ramda'
 import {app, udpPort} from '../index'
 
 const client = dgram.createSocket('udp4')
 const sendAsync = promisify(client.send.bind(client))
 const data = {1: 'ok'}
+const maybeParse = tryCatch(JSON.parse, always('')) // handles non json values
 
-test('adding keys', () => request(app)
+test('Adding keys', () => request(app)
   .post('/')
   .set('Accept', 'application/json')
   .send(data)
@@ -17,14 +19,14 @@ test('adding keys', () => request(app)
   .expect('transfer-encoding', /chunked/)
 )
 
-test('reading stream', t => request(app)
+test('Reading stream', t => request(app)
   .get('/?limit=100')
   .set('Accept', 'application/json')
   .expect(200)
   .then(d => t.regex(d.text, /1/))
 )
 
-test('querying database', t => request(app)
+test('Querying database', t => request(app)
   .get(`/?q=${[
     JSON.stringify({gt: '1473017287456'}),
     'limit=100'
@@ -34,7 +36,7 @@ test('querying database', t => request(app)
   .then(d => t.regex(d.text, /"ok"/))
 )
 
-test('sending message via UDP', async t => {
+test('Sending message via UDP', async t => {
   const message = {value: 'My KungFu is Good!'}
   const buffer = Buffer.from(JSON.stringify((message)))
 
@@ -49,7 +51,8 @@ test('sending message via UDP', async t => {
       // test if all are correct objects
       const messages = d.text.split('\n')
         .map(e => e.split('Z '))
-        .map(e => e[1] && JSON.parse(e[1]))
+        .map(e => e[1] && maybeParse(e[1]))
+        .filter(Boolean)
 
       // contain correct string
       t.truthy(messages.find(e => e.value === message.value))
@@ -65,7 +68,7 @@ test('Query cli usage', async t => {
   t.falsy(stderr)
 })
 
-test('Send stacktrace AKA non-json', async t => {
+test('Send TCP stacktrace AKA non-json', async t => {
   const {stdout, stderr} = await execa.command(
     'curl -s -X POST -H "Content-Type: text/plain" -d @./test/example.java.stacktrace.txt localhost:5000',
     {shell: true}
@@ -75,6 +78,22 @@ test('Send stacktrace AKA non-json', async t => {
 
   const query = await execa.command(
     './query.sh \'2 min ago\' | grep inte',
+    {shell: true}
+  )
+  t.truthy(query.stdout)
+  t.falsy(query.stderr)
+})
+
+test('Send UDP stacktrace AKA non-json', async t => {
+  const {stdout, stderr} = await execa.command(
+    'echo "nginx.status_200:1|c" | nc -u -w0 127.0.0.1 5001',
+    {shell: true}
+  )
+  t.falsy(stdout) // server is not 'chatty'
+  t.falsy(stderr)
+
+  const query = await execa.command(
+    './query.sh \'2 min ago\' | grep nginx',
     {shell: true}
   )
   t.truthy(query.stdout)
