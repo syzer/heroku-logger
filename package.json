@@ -1,6 +1,6 @@
 {
   "name": "message-que",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Grep all your syslog with fast message/log server based on level db",
   "engines": {
     "node": "^12.x"
@@ -14,7 +14,7 @@
     "test-write-performance": "ab -n 10000 -c 100 -T 'application/json'  -p test/test.json http://127.0.0.1:5000/ > write.performance.md",
     "query": "./query.sh",
     "bin": {
-      "syslog-grep": "./query.sh"
+      "syslog-grep": "query.sh"
     }
   },
   "dependencies": {
