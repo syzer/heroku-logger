@@ -99,3 +99,63 @@ test('Send UDP stacktrace AKA non-json', async t => {
   t.truthy(query.stdout)
   t.falsy(query.stderr)
 })
+
+const delay = seconds =>
+  new Promise((resolve =>
+    setTimeout(resolve, seconds * 1000)))
+
+test('Query time ranges', async t => {
+  await execa.command(
+    'echo "test.status_200:1|c" | nc -u -w0 127.0.0.1 5001',
+    {shell: true}
+  )
+
+  const queryOk = await execa.command(
+    './query.sh \'10 min ago\' | grep test',
+    {shell: true}
+  )
+
+  t.truthy(queryOk.stdout)
+  t.falsy(queryOk.stderr)
+
+  await delay(2) // Timings are hard
+
+  return await execa.command(
+    './query.sh \'2 sec ago\' | grep test',
+    {shell: true}
+  )
+    .then(() =>
+      t.fail('Should have no messages in that time'))
+    .catch(() =>
+      t.pass('No reply in that time interval'))
+})
+
+test('Query localserver', async t => {
+  const queryOk = await execa.command(
+    './query.sh \'5 min ago\' | grep nginx',
+    {
+      shell: true,
+      env: {
+        SYSLOG_SRV: '127.0.0.1'
+      }
+    }
+  )
+  t.truthy(queryOk.stdout)
+  t.falsy(queryOk.stderr)
+})
+
+test('Query remote server', t =>
+  execa.command(
+    './query.sh \'5 min ago\' | grep nginx',
+    {
+      shell: true,
+      env: {
+        SYSLOG_SRV: '1.1.1.1' // let's hope this server is not on :)
+      }
+    }
+  )
+    .then(() =>
+      t.fail('Should have no messages from that server'))
+    .catch(() =>
+      t.pass('This server has no mesasges but respond ok'))
+)

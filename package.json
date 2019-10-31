@@ -1,6 +1,6 @@
 {
   "name": "message-que",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Grep all your syslog with fast message/log server based on level db",
   "engines": {
     "node": "^12.x"
