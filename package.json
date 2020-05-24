@@ -59,7 +59,7 @@
     "ramda": "^0.26.1",
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.0",
-    "xo": "^0.17.0"
+    "xo": "^0.18.1"
   },
   "xo": {
     "semicolon": false,
