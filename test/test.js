@@ -11,13 +11,15 @@ const sendAsync = promisify(client.send.bind(client))
 const data = {1: 'ok'}
 const maybeParse = tryCatch(JSON.parse, always('')) // handles non json values
 
-test('Adding keys', () => request(app)
-  .post('/')
-  .set('Accept', 'application/json')
-  .send(data)
-  .expect(200)
-  .expect('transfer-encoding', /chunked/)
-)
+test('Adding keys', t =>
+  t.notThrows(() =>
+    request(app)
+      .post('/')
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect(200)
+      .expect('transfer-encoding', /chunked/)
+  ))
 
 test('Reading stream', t => request(app)
   .get('/?limit=100')
