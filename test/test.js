@@ -118,7 +118,7 @@ test('Query time ranges', async t => {
   t.truthy(queryOk.stdout)
   t.falsy(queryOk.stderr)
 
-  await delay(2) // Timings are hard
+  await delay(2.5) // Timings are hard
 
   return await execa.command(
     './query.sh \'2 sec ago\' | grep test',
