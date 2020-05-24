@@ -1,0 +1,6 @@
+node_modules
+.git
+.gitignore
+.travis.yml
+docker-compose.ym
+data/*
