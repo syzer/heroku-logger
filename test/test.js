@@ -107,10 +107,10 @@ const delay = seconds =>
     setTimeout(resolve, seconds * 1000)))
 
 test('Query time ranges', async t => {
-  await execa.command(
-    'echo "test.status_200:1|c" | nc -u -w0 127.0.0.1 5001',
-    {shell: true}
-  )
+  t.plan(3)
+  await execa.command('echo "test.status_200:1|c" | nc -u -w0 127.0.0.1 5001', {
+    shell: true
+  })
 
   const queryOk = await execa.command(
     './query.sh \'10 min ago\' | grep test',
